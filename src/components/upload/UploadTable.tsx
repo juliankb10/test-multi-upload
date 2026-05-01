@@ -9,18 +9,7 @@ interface Props {
 
 export default function UploadTable({ files, dispatch }: Props) {
   return (
-    <table
-      className="
-        w-full
-        overflow-hidden
-        rounded-xl
-        border
-        border-collapse
-        bg-white
-        shadow-sm
-        table-auto
-      "
-    >
+    <table className="w-full overflow-hidden rounded-xl border border-collapse bg-white shadow-sm table-auto">
       <thead className="sticky top-0 h-10 border-b bg-gray-200">
         <tr className="text-left">
           <th className="pl-2">Name</th>

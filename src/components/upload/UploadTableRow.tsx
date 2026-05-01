@@ -11,23 +11,12 @@ interface Props {
 
 export default function UploadTableRow({ file, dispatch }: Props) {
   return (
-    <tr
-      className="
-        border-b
-        text-left
-        hover:bg-gray-50
-        transition
-      "
-    >
+    <tr className="border-b text-left hover:bg-gray-50 transition">
       <td className="pl-2 py-3">
         <a
           href="#"
           target="_blank"
-          className="
-            text-sm
-            text-blue-600
-            hover:underline
-          "
+          className="text-sm text-blue-600 hover:underline"
         >
           {file.name}
         </a>

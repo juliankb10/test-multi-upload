@@ -3,18 +3,35 @@ import { limitConcurrency } from "@/utils/limit-concurrency";
 import type { UploadAction } from "@/store/upload.store";
 
 import type {
-  //   ErrorFile,
+  // ErrorFile,
   FileDescriptor,
-  //   UploadingFile,
+  // UploadingFile,
 } from "@/types/file-descriptor";
 
 const MAX_CONCURRENT_UPLOADS = 10;
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
 export async function handleUploadFiles(
   files: FileDescriptor[],
   dispatch: React.Dispatch<UploadAction>,
 ) {
-  const tasks = files.map((file) => {
+  const validFiles = files.filter((file) => {
+    if (file.size > MAX_FILE_SIZE) {
+      dispatch({
+        type: "UPLOAD_ERROR",
+        payload: {
+          id: file.id,
+          error: "File exceeds 5MB",
+        },
+      });
+
+      return false;
+    }
+
+    return true;
+  });
+
+  const tasks = validFiles.map((file) => {
     return async () => {
       const controller = new AbortController();
 

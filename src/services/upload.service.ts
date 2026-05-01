@@ -36,7 +36,7 @@ export function uploadFile({ file, signal, onProgress }: Params): Promise<{
       reject(new DOMException("Aborted", "AbortError"));
     });
 
-    xhr.open("POST", "/api/upload");
+    xhr.open("POST", "http://localhost:8000/v1/uploads");
 
     const formData = new FormData();
 

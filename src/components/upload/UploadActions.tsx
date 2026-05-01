@@ -15,30 +15,12 @@ interface Props {
 
 export default function UploadActions({ file, dispatch }: Props) {
   return (
-    <div
-      className="
-        flex
-        shrink-0
-        items-center
-        gap-2
-      "
-    >
+    <div className="flex shrink-0 items-center gap-2">
       {file.status === "uploading" && (
         <button
           type="button"
           onClick={() => handleCancelUpload(file, dispatch)}
-          className="
-            flex
-            h-8
-            w-8
-            cursor-pointer
-            items-center
-            justify-center
-            rounded-md
-            border
-            transition
-            hover:bg-red-50
-          "
+          className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border transition hover:bg-red-50"
           aria-label="Cancel upload"
         >
           <X size={16} />
@@ -49,18 +31,7 @@ export default function UploadActions({ file, dispatch }: Props) {
         <button
           type="button"
           onClick={() => handleRetryUpload(file, dispatch)}
-          className="
-            flex
-            h-8
-            w-8
-            cursor-pointer
-            items-center
-            justify-center
-            rounded-md
-            border
-            transition
-            hover:bg-yellow-50
-          "
+          className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border transition hover:bg-yellow-50"
           aria-label="Retry upload"
         >
           <RotateCcw size={16} />
@@ -71,18 +42,7 @@ export default function UploadActions({ file, dispatch }: Props) {
         <button
           type="button"
           onClick={() => handleRemoveFile(file, dispatch)}
-          className="
-            flex
-            h-8
-            w-8
-            cursor-pointer
-            items-center
-            justify-center
-            rounded-md
-            border
-            transition
-            hover:bg-red-50
-          "
+          className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border transition hover:bg-red-50"
           aria-label="Remove file"
         >
           <Trash2 size={16} />

@@ -1,6 +1,9 @@
 "use client";
 import { useMemo, useReducer } from "react";
-import { mapFilesToDescriptors } from "@/utils/map-files-to-descriptors";
+import {
+  filterDuplicateFiles,
+  mapFilesToDescriptors,
+} from "@/utils/map-files-to-descriptors";
 import { uploadReducer, initialUploadState } from "@/store/upload.store";
 import { handleUploadFiles, submitUploadForm } from "./actions";
 import UploadDropzone from "@/components/upload/UploadDropzone";
@@ -22,7 +25,11 @@ export default function UploadPage() {
     state.files.every((file) => file.status === "done");
 
   const handleFileSelection = async (files: FileList | File[]) => {
-    const descriptors = mapFilesToDescriptors(files);
+    // const descriptors = mapFilesToDescriptors(files);
+
+    const uniqueFiles = filterDuplicateFiles(Array.from(files), state.files);
+
+    const descriptors = mapFilesToDescriptors(uniqueFiles);
 
     dispatch({
       type: "ADD_FILES",
@@ -34,16 +41,7 @@ export default function UploadPage() {
 
   return (
     <main className="min-h-screen p-4 sm:p-8">
-      <div
-        className="
-            mx-auto
-            grid
-            max-w-7xl
-            grid-cols-1
-            gap-8
-            sm:grid-cols-[2fr_1fr]
-        "
-      >
+      <div className=" mx-auto grid max-w-7xl grid-cols-1 gap-8 sm:grid-cols-[2fr_1fr]">
         <section className="space-y-6">
           <UploadDropzone onSelect={handleFileSelection} />
 

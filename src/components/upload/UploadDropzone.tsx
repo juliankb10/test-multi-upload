@@ -5,17 +5,7 @@ interface Props {
 export default function UploadDropzone({ onSelect }: Props) {
   return (
     <div
-      className="
-        flex
-        flex-col
-        border
-        border-dashed
-        border-gray-400
-        bg-gray-100
-        p-6
-        text-center
-        text-gray-500
-      "
+      className="flex flex-col border border-dashed border-gray-400 bg-gray-100 p-6 text-center text-gray-500"
       onDragOver={(e) => e.preventDefault()}
       onDrop={(e) => {
         e.preventDefault();
@@ -42,8 +32,8 @@ export default function UploadDropzone({ onSelect }: Props) {
         className="hidden"
         onChange={(e) => {
           if (!e.target.files) return;
-
           void onSelect(e.target.files);
+          e.target.value = "";
         }}
       />
     </div>
