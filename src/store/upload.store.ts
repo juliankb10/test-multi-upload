@@ -8,7 +8,7 @@ export const initialUploadState: UploadState = {
   files: [],
 };
 
-type UploadAction =
+export type UploadAction =
   | {
       type: "ADD_FILES";
       payload: FileDescriptor[];

@@ -1,9 +1,10 @@
 import type { FileDescriptor } from "@/types/file-descriptor";
 import UploadTableRow from "./UploadTableRow";
+import type { UploadAction } from "@/store/upload.store";
 
 interface Props {
   files: FileDescriptor[];
-  dispatch: React.Dispatch<any>;
+  dispatch: React.Dispatch<UploadAction>;
 }
 
 export default function UploadTable({ files, dispatch }: Props) {

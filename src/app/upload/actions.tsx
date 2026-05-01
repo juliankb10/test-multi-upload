@@ -1,5 +1,6 @@
 import { uploadFile } from "@/services/upload.service";
 import { limitConcurrency } from "@/utils/limit-concurrency";
+import type { UploadAction } from "@/store/upload.store";
 
 import type {
   //   ErrorFile,
@@ -11,7 +12,7 @@ const MAX_CONCURRENT_UPLOADS = 10;
 
 export async function handleUploadFiles(
   files: FileDescriptor[],
-  dispatch: React.Dispatch<any>,
+  dispatch: React.Dispatch<UploadAction>,
 ) {
   const tasks = files.map((file) => {
     return async () => {
@@ -75,7 +76,7 @@ export async function handleUploadFiles(
 
 export function handleCancelUpload(
   file: FileDescriptor,
-  dispatch: React.Dispatch<any>,
+  dispatch: React.Dispatch<UploadAction>,
 ) {
   if (file.status !== "uploading") {
     return;
@@ -93,7 +94,7 @@ export function handleCancelUpload(
 
 export async function handleRetryUpload(
   file: FileDescriptor,
-  dispatch: React.Dispatch<any>,
+  dispatch: React.Dispatch<UploadAction>,
 ) {
   if (file.status !== "error") {
     return;
@@ -104,7 +105,7 @@ export async function handleRetryUpload(
 
 export function handleRemoveFile(
   file: FileDescriptor,
-  dispatch: React.Dispatch<any>,
+  dispatch: React.Dispatch<UploadAction>,
 ) {
   if (file.status === "uploading") {
     file.controller.abort();

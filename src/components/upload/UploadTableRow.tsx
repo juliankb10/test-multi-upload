@@ -2,29 +2,14 @@
 import type { FileDescriptor } from "@/types/file-descriptor";
 import UploadProgress from "./UploadProgress";
 import UploadActions from "./UploadActions";
+import type { UploadAction } from "@/store/upload.store";
 
 interface Props {
   file: FileDescriptor;
-  dispatch: React.Dispatch<any>;
+  dispatch: React.Dispatch<UploadAction>;
 }
 
 export default function UploadTableRow({ file, dispatch }: Props) {
-  const progress =
-    file.status === "uploading"
-      ? file.progress
-      : file.status === "done"
-        ? 100
-        : 0;
-
-  const progressBarColor =
-    file.status === "done"
-      ? "bg-green-500"
-      : file.status === "error"
-        ? "bg-red-500"
-        : file.status === "canceled"
-          ? "bg-gray-400"
-          : "bg-blue-500";
-
   return (
     <tr
       className="

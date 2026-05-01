@@ -6,10 +6,11 @@ import {
   handleRemoveFile,
   handleRetryUpload,
 } from "@/app/upload/actions";
+import type { UploadAction } from "@/store/upload.store";
 
 interface Props {
   file: FileDescriptor;
-  dispatch: React.Dispatch<any>;
+  dispatch: React.Dispatch<UploadAction>;
 }
 
 export default function UploadActions({ file, dispatch }: Props) {
