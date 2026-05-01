@@ -15,7 +15,7 @@ export function mapFilesToDescriptors<T extends FileList | File[]>(
 
   return uniqueFiles.map((file) => ({
     id: crypto.randomUUID(),
-    file: Array.from(files),
+    file,
     name: file.name,
     size: file.size,
     mimeType: file.type,
