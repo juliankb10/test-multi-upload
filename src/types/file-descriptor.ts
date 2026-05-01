@@ -5,7 +5,7 @@ export interface UploadedFile {
 
 interface BaseFile {
   id: string;
-  file: File;
+  file: File[];
   name: string;
   size: number;
   mimeType: string;
