@@ -39,6 +39,163 @@ Consulta la [documentación de despliegue de Next.js](https://nextjs.org/docs/ap
 
 [test-multi-uploads.vercel.app](https://test-multi-uploads.vercel.app/?utm_source=chatgpt.com)
 
+# Decisiones Técnicas
+
+## Arquitectura basada en responsabilidades
+
+La aplicación fue estructurada separando responsabilidades en diferentes capas:
+
+```txt
+components/
+services/
+store/
+types/
+utils/
+validators/
+```
+
+Esto permite:
+
+- Mejor mantenibilidad.
+- Reutilización de lógica.
+- Separación entre UI, lógica de negocio y comunicación HTTP.
+- Escalabilidad del proyecto.
+
+---
+
+# Manejo de uploads concurrentes
+
+Se implementó un sistema de uploads concurrentes controlados mediante `limitConcurrency`, evitando saturar la red o el navegador al subir múltiples archivos simultáneamente.
+
+```ts
+const MAX_CONCURRENT_UPLOADS = 10;
+```
+
+Cada archivo se procesa de manera independiente, permitiendo:
+
+- progreso individual,
+- cancelación individual,
+- reintentos individuales,
+- manejo de errores por archivo.
+
+---
+
+# Uso de XMLHttpRequest para progreso real
+
+Se utilizó `XMLHttpRequest` en lugar de `fetch` para soportar progreso real de subida mediante:
+
+```ts
+xhr.upload.onprogress;
+```
+
+Esto permite actualizar visualmente el porcentaje de carga de cada archivo en tiempo real.
+
+---
+
+# Cancelación de uploads con AbortController
+
+Cada upload utiliza un `AbortController` independiente para permitir cancelación individual de archivos durante la subida.
+
+```ts
+controller.abort();
+```
+
+Esto mejora la experiencia de usuario y evita uploads innecesarios.
+
+---
+
+# Persistencia mock desacoplada
+
+Se implementó una persistencia mock utilizando Route Handlers de Next.js:
+
+```txt
+/api/upload
+/api/upload/complete
+```
+
+Esto permite desarrollar y probar toda la lógica frontend sin depender de infraestructura real de almacenamiento.
+
+Además:
+
+- se simularon delays de red,
+- fallos aleatorios (20%),
+- IDs dinámicos,
+- URLs mock.
+
+---
+
+# Manejo de errores y reintentos
+
+La aplicación contempla:
+
+- errores de red,
+- cancelaciones,
+- fallos aleatorios simulados,
+- validaciones de archivos,
+- reintentos manuales por archivo.
+
+Cada error es manejado de forma aislada para no afectar otros uploads.
+
+---
+
+# Prevención de archivos duplicados
+
+Los archivos se deduplican utilizando la combinación:
+
+```ts
+name + size;
+```
+
+Esto evita uploads repetidos y mejora la experiencia de usuario.
+
+---
+
+# Validaciones con Formik + Yup
+
+Se utilizó:
+
+- Formik para manejo de formularios,
+- Yup para validaciones declarativas.
+
+Validaciones implementadas:
+
+- mínimo y máximo de archivos,
+- tamaño máximo por archivo,
+- validación de campos requeridos,
+- bloqueo de submit mientras existan uploads pendientes.
+
+---
+
+# Accesibilidad
+
+La interfaz incorpora mejoras de accesibilidad como:
+
+- labels asociados a inputs,
+- navegación por teclado,
+- focus visible,
+- `aria-live` para estados dinámicos,
+- barra de progreso accesible mediante `role="progressbar"`.
+
+---
+
+# Responsive Design
+
+La interfaz fue diseñada con enfoque responsive:
+
+- una columna en dispositivos móviles,
+- layout dividido en pantallas mayores.
+
+---
+
+# Manejo de estado
+
+El estado de uploads fue centralizado mediante reducer/store para facilitar:
+
+- trazabilidad de estados,
+- predictibilidad,
+- mantenimiento,
+- manejo de acciones complejas asincrónicas.
+
 ## Parte A - Cuestionario
 
 - 1 (src/types/file-descriptor-A.ts, src/utils/file-upload-A.ts)
