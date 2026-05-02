@@ -9,6 +9,7 @@ interface BaseFile {
   name: string;
   size: number;
   mimeType: string;
+  url: string;
 }
 
 interface IdleFile extends BaseFile {

@@ -31,6 +31,7 @@ export default function UploadProgress({ file }: Props) {
         aria-valuenow={progress}
       >
         <div
+          aria-live="polite"
           className={`h-full rounded-full transition-all duration-300 ${progressBarColor}`}
           style={{
             width: `${progress}%`,
@@ -43,7 +44,7 @@ export default function UploadProgress({ file }: Props) {
       </div>
 
       {file.status === "error" && (
-        <div className="mt-1 flex items-center gap-1 text-[11px]">
+        <div className="mt-1 flex items-center gap-1 text-[11px]" role="alert">
           <span className="font-medium text-gray-500">Error:</span>
 
           <span className="truncate text-red-500" title={file.error}>

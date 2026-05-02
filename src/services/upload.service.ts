@@ -4,15 +4,25 @@ interface Params {
   onProgress: (progress: number) => void;
 }
 
-export function uploadFile({ file, signal, onProgress }: Params): Promise<{
+interface UploadResponse {
   id: string;
   url: string;
-}> {
+}
+
+export function uploadFile({
+  file,
+  signal,
+  onProgress,
+}: Params): Promise<UploadResponse> {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
 
+    xhr.open("POST", "/api/upload");
+
     xhr.upload.onprogress = (event) => {
-      if (!event.lengthComputable) return;
+      if (!event.lengthComputable) {
+        return;
+      }
 
       const progress = Math.round((event.loaded / event.total) * 100);
 
@@ -20,10 +30,16 @@ export function uploadFile({ file, signal, onProgress }: Params): Promise<{
     };
 
     xhr.onload = () => {
-      if (xhr.status >= 200 && xhr.status < 300) {
-        resolve(JSON.parse(xhr.response));
-      } else {
-        reject(new Error("Upload failed"));
+      try {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          const response = JSON.parse(xhr.response);
+
+          resolve(response);
+        } else {
+          reject(new Error("Upload failed"));
+        }
+      } catch {
+        reject(new Error("Invalid server response"));
       }
     };
 
@@ -31,12 +47,17 @@ export function uploadFile({ file, signal, onProgress }: Params): Promise<{
       reject(new Error("Network error"));
     };
 
-    signal.addEventListener("abort", () => {
+    const abortHandler = () => {
       xhr.abort();
-      reject(new DOMException("Aborted", "AbortError"));
-    });
 
-    xhr.open("POST", "http://localhost:8000/v1/uploads");
+      reject(new DOMException("Aborted", "AbortError"));
+    };
+
+    signal.addEventListener("abort", abortHandler);
+
+    xhr.onloadend = () => {
+      signal.removeEventListener("abort", abortHandler);
+    };
 
     const formData = new FormData();
 

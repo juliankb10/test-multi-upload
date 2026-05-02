@@ -20,6 +20,7 @@ export function mapFilesToDescriptors<T extends FileList | File[]>(
     size: file.size,
     mimeType: file.type,
     status: "idle",
+    url: URL.createObjectURL(file),
   }));
 }
 

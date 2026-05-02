@@ -35,18 +35,17 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
+## Parte A - Cuestionario
 
-## Parte A - Cuestionario 
-- 1
-Utilicé discriminated unions en para modelar estados válidos del flujo de subida. El progreso solo existe en el estado "uploading", evitando inconsistencias mediante type narrowing, igual 
-que error solo existe en el estado "error". Separé tipos y lógica utilitaria para mantener una arquitectura modular y escalable.
+- 1 (src/types/file-descriptor-A.ts, src/utils/file-upload-A.ts)
+  Utilicé discriminated unions en para modelar estados válidos del flujo de subida. El progreso solo existe en el estado "uploading", evitando inconsistencias mediante type narrowing, igual que error solo existe en el estado "error". Separé tipos y lógica utilitaria para mantener una arquitectura modular y escalable.
 
-- 2
-Utilicé Array.from para normalizar tanto FileList como File[] en una estructura iterable 
-uniforme. La eliminación de duplicados se implementó mediante Map, usando name + size como clave compuesta y evitar uploads redundantes. Finalmente, se asigna un identificador con crypto.randomUUID() para facilitar rendering en React.
+- 2 (src/utils/map-files-to-descriptors-A.ts)
+  Utilicé Array.from para normalizar tanto FileList como File[] en una estructura iterable
+  uniforme. La eliminación de duplicados se implementó mediante Map, usando name + size como clave compuesta y evitar uploads redundantes. Finalmente, se asigna un identificador con crypto.randomUUID() para facilitar rendering en React.
 
-- 3
-La implementación usa un patrón worker pool para limitar la cantidad de tareas concurrentes. 
-Cada worker consume tareas compartiendo un índice global, mientras que el resultado se almacena 
-usando el índice original para preservar el orden. Esto evita sobrecargar red/memoria y 
-mejora la estabilidad frente a grandes volúmenes de operaciones async.
+- 3 (src/utils/limit-concurrency-A)
+  Implemente un patrón worker pool para limitar la cantidad de tareas concurrentes.
+  Cada worker consume tareas compartiendo un índice global, mientras que el resultado se almacena
+  usando el índice original para preservar el orden. Esto evita sobrecargar memoria y
+  mejora la estabilidad frente a grandes volúmenes de operaciones async.

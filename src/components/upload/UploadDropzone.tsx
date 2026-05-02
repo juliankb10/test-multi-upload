@@ -5,6 +5,8 @@ interface Props {
 export default function UploadDropzone({ onSelect }: Props) {
   return (
     <div
+      role="button"
+      tabIndex={0}
       className="flex flex-col border border-dashed border-gray-400 bg-gray-100 p-6 text-center text-gray-500"
       onDragOver={(e) => e.preventDefault()}
       onDrop={(e) => {

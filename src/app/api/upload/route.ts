@@ -23,10 +23,8 @@ export async function POST(request: Request) {
       );
     }
 
-    // Simulate network delay
     await wait(1000 + Math.random() * 2000);
 
-    // Simulate random failures (20%)
     if (Math.random() < 0.2) {
       return NextResponse.json(
         {

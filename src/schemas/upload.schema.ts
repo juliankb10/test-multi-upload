@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 const MAX_SIZE = 5 * 1024 * 1024;
 
-const SUPPORTED_TYPES = ["image/png", "image/jpeg", "application/pdf"];
+const SUPPORTED_TYPES = ["application/pdf"];
 
 export const uploadSchema = Yup.object({
   title: Yup.string().required("Title is required"),

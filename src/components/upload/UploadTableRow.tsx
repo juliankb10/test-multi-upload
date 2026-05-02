@@ -14,7 +14,7 @@ export default function UploadTableRow({ file, dispatch }: Props) {
     <tr className="border-b text-left hover:bg-gray-50 transition">
       <td className="pl-2 py-3">
         <a
-          href="#"
+          href={file.url}
           target="_blank"
           className="text-sm text-blue-600 hover:underline"
         >
@@ -22,9 +22,11 @@ export default function UploadTableRow({ file, dispatch }: Props) {
         </a>
       </td>
 
-      <td className="text-sm text-gray-600">{file.size.toLocaleString()}</td>
+      <td className="text-sm text-gray-600 pl-2 ">
+        {file.size.toLocaleString()}
+      </td>
 
-      <td className="text-sm text-gray-600">{file.mimeType}</td>
+      <td className="text-sm text-gray-600 pl-2 ">{file.mimeType}</td>
 
       <td className="p-3 min-w-65">
         <div className="flex items-center gap-3">

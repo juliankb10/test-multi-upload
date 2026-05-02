@@ -1,12 +1,15 @@
 import { uploadFile } from "@/services/upload.service";
 import { limitConcurrency } from "@/utils/limit-concurrency";
 import type { UploadAction } from "@/store/upload.store";
+import type { FileDescriptor } from "@/types/file-descriptor";
 
-import type {
-  // ErrorFile,
-  FileDescriptor,
-  // UploadingFile,
-} from "@/types/file-descriptor";
+interface submitFormParams {
+  values: {
+    title: string;
+    description: string;
+  };
+  files: FileDescriptor[];
+}
 
 const MAX_CONCURRENT_UPLOADS = 10;
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
@@ -52,6 +55,7 @@ export async function handleUploadFiles(
               type: "SET_PROGRESS",
               payload: {
                 id: file.id,
+                url: file.url,
                 progress,
               },
             });
@@ -136,19 +140,25 @@ export function handleRemoveFile(
   });
 }
 
-interface SubmitUploadFormParams {
-  values: {
-    title: string;
-    description: string;
-  };
-  files: FileDescriptor[];
-}
-
-export async function submitUploadForm({
-  values,
-  files,
-}: SubmitUploadFormParams) {
+export async function submitForm({ values, files }: submitFormParams) {
   const doneFiles = files.filter((file) => file.status === "done");
+
+  const completeResponse = await fetch("/api/upload/complete", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      files: doneFiles.map((file) => ({
+        id: file.uploaded.id,
+        url: file.uploaded.url,
+      })),
+    }),
+  });
+
+  if (!completeResponse.ok) {
+    throw new Error("Failed to complete uploads");
+  }
 
   const payload = {
     title: values.title,

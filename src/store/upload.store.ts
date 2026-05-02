@@ -24,6 +24,7 @@ export type UploadAction =
       type: "SET_PROGRESS";
       payload: {
         id: string;
+        url: string;
         progress: number;
       };
     }

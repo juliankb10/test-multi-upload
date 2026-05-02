@@ -13,9 +13,9 @@ export default function UploadTable({ files, dispatch }: Props) {
       <thead className="sticky top-0 h-10 border-b bg-gray-200">
         <tr className="text-left">
           <th className="pl-2">Name</th>
-          <th>Size</th>
-          <th>Mime type</th>
-          <th>Options</th>
+          <th className="pl-2">Size</th>
+          <th className="pl-2">Mime type</th>
+          <th className="pl-2">Options</th>
         </tr>
       </thead>
 

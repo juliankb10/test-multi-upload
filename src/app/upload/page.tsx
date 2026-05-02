@@ -5,7 +5,7 @@ import {
   mapFilesToDescriptors,
 } from "@/utils/map-files-to-descriptors";
 import { uploadReducer, initialUploadState } from "@/store/upload.store";
-import { handleUploadFiles, submitUploadForm } from "./actions";
+import { handleUploadFiles, submitForm } from "./actions";
 import UploadDropzone from "@/components/upload/UploadDropzone";
 import UploadTable from "@/components/upload/UploadTable";
 import UploadForm from "@/components/forms/UploadForm";
@@ -25,8 +25,6 @@ export default function UploadPage() {
     state.files.every((file) => file.status === "done");
 
   const handleFileSelection = async (files: FileList | File[]) => {
-    // const descriptors = mapFilesToDescriptors(files);
-
     const uniqueFiles = filterDuplicateFiles(Array.from(files), state.files);
 
     const descriptors = mapFilesToDescriptors(uniqueFiles);
@@ -56,7 +54,7 @@ export default function UploadPage() {
             pendingUploads={pendingUploads}
             hasUploading={hasUploading}
             allDone={allDone}
-            onSubmit={submitUploadForm}
+            onSubmit={submitForm}
           />
         </aside>
       </div>
