@@ -1,43 +1,111 @@
+"use client";
+
+import { useRef, useState } from "react";
+
 interface Props {
-  onSelect: (files: FileList | File[]) => void;
+  onFiles: (files: File[]) => void;
 }
 
-export default function UploadDropzone({ onSelect }: Props) {
+export default function UploadDropzone({ onFiles }: Props) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const [isDragging, setIsDragging] = useState(false);
+
+  function handleFiles(fileList: FileList | null) {
+    if (!fileList) {
+      return;
+    }
+
+    onFiles(Array.from(fileList));
+  }
+
+  function handleDragEnter(event: React.DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+
+    setIsDragging(true);
+  }
+
+  function handleDragLeave(event: React.DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+
+    if (event.currentTarget.contains(event.relatedTarget as Node)) {
+      return;
+    }
+
+    setIsDragging(false);
+  }
+
+  function handleDragOver(event: React.DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+  }
+
+  function handleDrop(event: React.DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+
+    setIsDragging(false);
+
+    handleFiles(event.dataTransfer.files);
+  }
+
+  function openFilePicker() {
+    inputRef.current?.click();
+  }
+
+  function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+
+      openFilePicker();
+    }
+  }
+
   return (
-    <div
-      role="button"
-      tabIndex={0}
-      className="flex flex-col border border-dashed border-gray-400 bg-gray-100 p-6 text-center text-gray-500"
-      onDragOver={(e) => e.preventDefault()}
-      onDrop={(e) => {
-        e.preventDefault();
+    <>
+      <div
+        role="button"
+        tabIndex={0}
+        aria-label="File upload dropzone"
+        onClick={openFilePicker}
+        onKeyDown={handleKeyDown}
+        onDragEnter={handleDragEnter}
+        onDragLeave={handleDragLeave}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+        className={`
+          rounded-xl
+          border-2
+          border-dashed
+          p-10
+          text-center
+          transition
+          cursor-pointer
+          focus:outline-none
+          focus:ring-2
+          focus:ring-black
+          ${isDragging ? "border-black bg-gray-100" : "border-gray-300"}
+        `}
+      >
+        <p className="font-medium">Drag & drop files here</p>
 
-        void onSelect(e.dataTransfer.files);
-      }}
-    >
-      <label htmlFor="file-upload" className="cursor-pointer">
-        Drag & drop files here or click to upload
-      </label>
+        <p className="text-sm text-gray-500">or click to browse</p>
 
-      <label htmlFor="file-upload" className="mt-4 cursor-pointer">
-        Accepted files pdf
-      </label>
+        <p className="text-xs text-gray-500 mt-6">Accepted files pdf</p>
 
-      <label htmlFor="file-upload" className="cursor-pointer">
-        Max files allowed: 10
-      </label>
+        <p className="text-xs text-gray-500 -mb-2">Max files allowed: 10</p>
+
+        <div aria-live="polite" className="sr-only">
+          {isDragging ? "Drop files now" : "Waiting for files"}
+        </div>
+      </div>
 
       <input
         id="file-upload"
+        ref={inputRef}
         type="file"
         multiple
         className="hidden"
-        onChange={(e) => {
-          if (!e.target.files) return;
-          void onSelect(e.target.files);
-          e.target.value = "";
-        }}
+        onChange={(event) => handleFiles(event.target.files)}
       />
-    </div>
+    </>
   );
 }

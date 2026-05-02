@@ -41,7 +41,7 @@ export default function UploadPage() {
     <main className="min-h-screen p-4 sm:p-8">
       <div className=" mx-auto grid max-w-7xl grid-cols-1 gap-8 sm:grid-cols-[2fr_1fr]">
         <section className="space-y-6">
-          <UploadDropzone onSelect={handleFileSelection} />
+          <UploadDropzone onFiles={handleFileSelection} />
 
           <div className="overflow-x-auto">
             <UploadTable files={state.files} dispatch={dispatch} />
