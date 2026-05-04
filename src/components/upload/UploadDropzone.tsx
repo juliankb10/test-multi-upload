@@ -89,10 +89,6 @@ export default function UploadDropzone({ onFiles }: Props) {
 
         <p className="text-sm text-gray-500">or click to browse</p>
 
-        <p className="text-xs text-gray-500 mt-6">Accepted files pdf</p>
-
-        <p className="text-xs text-gray-500 -mb-2">Max files allowed: 10</p>
-
         <div aria-live="polite" className="sr-only">
           {isDragging ? "Drop files now" : "Waiting for files"}
         </div>
