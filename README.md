@@ -1,4 +1,4 @@
-Este es un proyecto de Next.js creado con [create-next-app](https://nextjs.org/docs/app/api-reference/cli/create-next-app?utm_source=chatgpt.com).
+Este es un proyecto de Next.js creado con [create-next-app].
 
 ## Primeros pasos
 
@@ -14,30 +14,11 @@ pnpm dev
 bun dev
 ```
 
-Abre [http://localhost:3000](http://localhost:3000?utm_source=chatgpt.com) en tu navegador para ver el resultado.
-
-Puedes comenzar a editar la página modificando el archivo `app/page.tsx`. La página se actualizará automáticamente a medida que edites el archivo.
-
-Este proyecto utiliza [next/font](https://nextjs.org/docs/app/building-your-application/optimizing/fonts?utm_source=chatgpt.com) para optimizar y cargar automáticamente [Geist](https://vercel.com/font?utm_source=chatgpt.com), una nueva familia tipográfica de Vercel.
-
-## Aprende más
-
-Para aprender más sobre Next.js, revisa los siguientes recursos:
-
-- [Documentación de Next.js](https://nextjs.org/docs?utm_source=chatgpt.com) — aprende sobre las funcionalidades y API de Next.js.
-- [Aprende Next.js](https://nextjs.org/learn?utm_source=chatgpt.com) — tutorial interactivo de Next.js.
-
-También puedes consultar el repositorio oficial de [Next.js en GitHub](https://github.com/vercel/next.js?utm_source=chatgpt.com). ¡Tus comentarios y contribuciones son bienvenidos!
-
-## Despliegue en Vercel
-
-La forma más sencilla de desplegar tu aplicación de Next.js es utilizando la plataforma [Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_campaign=create-next-app-readme&utm_source=chatgpt.com), creada por los desarrolladores de Next.js.
-
-Consulta la [documentación de despliegue de Next.js](https://nextjs.org/docs/app/building-your-application/deploying?utm_source=chatgpt.com) para más detalles.
+Abre [http://localhost:3000] en tu navegador para ver el resultado.
 
 ## Demo
 
-[test-multi-uploads.vercel.app](https://test-multi-uploads.vercel.app/?utm_source=chatgpt.com)
+[https://test-multiple-uploads.vercel.app]
 
 # Decisiones Técnicas
 
