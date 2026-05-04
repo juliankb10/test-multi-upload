@@ -46,12 +46,13 @@ Consulta la [documentación de despliegue de Next.js](https://nextjs.org/docs/ap
 La aplicación fue estructurada separando responsabilidades en diferentes capas:
 
 ```txt
+app/
 components/
+schemas/
 services/
 store/
 types/
 utils/
-validators/
 ```
 
 Esto permite:
@@ -207,6 +208,5 @@ El estado de uploads fue centralizado mediante reducer/store para facilitar:
 
 - 3 (src/utils/limit-concurrency-A)
   Implemente un patrón worker pool para limitar la cantidad de tareas concurrentes.
-  Cada worker consume tareas compartiendo un índice global, mientras que el resultado se almacena
-  usando el índice original para preservar el orden. Esto evita sobrecargar memoria y
-  mejora la estabilidad frente a grandes volúmenes de operaciones async.
+  Cada worker consume tareas compartiendo un índice global, mientras que el resultado se almacena usando el índice original para preservar el orden. Esto evita sobrecargar
+  memoria y mejora la estabilidad frente a grandes volúmenes de operaciones async.
