@@ -15,6 +15,17 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!body.files) {
+      return NextResponse.json(
+        {
+          error: "Title is required",
+        },
+        {
+          status: 400,
+        },
+      );
+    }
+
     return NextResponse.json(
       {
         ok: true,
