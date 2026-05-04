@@ -81,7 +81,7 @@ export default function UploadDropzone({ onFiles }: Props) {
           cursor-pointer
           focus:outline-none
           focus:ring-2
-          focus:ring-black
+          focus:ring-gray-400
           ${isDragging ? "border-black bg-gray-100" : "border-gray-300"}
         `}
       >
