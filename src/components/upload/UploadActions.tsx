@@ -5,7 +5,7 @@ import {
   handleCancelUpload,
   handleRemoveFile,
   handleRetryUpload,
-} from "@/app/upload/actions";
+} from "@/app/actions/upload.action";
 import type { UploadAction } from "@/store/upload.store";
 
 interface Props {

@@ -5,7 +5,7 @@ import {
   mapFilesToDescriptors,
 } from "@/utils/map-files-to-descriptors";
 import { uploadReducer, initialUploadState } from "@/store/upload.store";
-import { handleUploadFiles, submitForm } from "./actions";
+import { handleUploadFiles, submitForm } from "../actions/upload.action";
 import UploadDropzone from "@/components/upload/UploadDropzone";
 import UploadTable from "@/components/upload/UploadTable";
 import UploadForm from "@/components/forms/UploadForm";
